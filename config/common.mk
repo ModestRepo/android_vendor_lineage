@@ -86,7 +86,12 @@ PRODUCT_COPY_FILES += \
 # This is Lineage!
 PRODUCT_COPY_FILES += \
     vendor/lineage/config/permissions/org.lineageos.android.xml:system/etc/permissions/org.lineageos.android.xml \
-    vendor/lineage/config/permissions/privapp-permissions-lineage.xml:system/etc/permissions/privapp-permissions-lineage.xml
+    vendor/lineage/config/permissions/privapp-permissions-lineage.xml:system/etc/permissions/privapp-permissions-lineage.xml \
+    vendor/lineage/config/permissions/privapp-permissions-cm-legacy.xml:system/etc/permissions/privapp-permissions-cm-legacy.xml
+
+# Enforce privapp-permissions whitelist
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.control_privapp_permissions=enforce
 
 # Hidden API whitelist
 PRODUCT_COPY_FILES += \
@@ -95,6 +100,9 @@ PRODUCT_COPY_FILES += \
 # Power whitelist
 PRODUCT_COPY_FILES += \
     vendor/lineage/config/permissions/lineage-power-whitelist.xml:system/etc/sysconfig/lineage-power-whitelist.xml
+
+# Include AOSP audio files
+include vendor/lineage/config/aosp_audio.mk
 
 # Include Lineage audio files
 include vendor/lineage/config/lineage_audio.mk
@@ -136,6 +144,7 @@ PRODUCT_PACKAGES += \
 # Custom Lineage packages
 PRODUCT_PACKAGES += \
     AudioFX \
+    Backgrounds \
     LineageSettingsProvider \
     LineageSetupWizard \
     Eleven \
@@ -144,7 +153,6 @@ PRODUCT_PACKAGES += \
     LockClock \
     TrebuchetQuickStep \
     Updater \
-    WallpaperPicker \
     WeatherProvider
 
 # Exchange support
@@ -173,11 +181,13 @@ PRODUCT_PACKAGES += \
     bash \
     bzip2 \
     curl \
+    getcap \
     htop \
     lib7z \
     libsepol \
     pigz \
     powertop \
+    setcap \
     unrar \
     unzip \
     vim \
